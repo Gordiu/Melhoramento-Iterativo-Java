@@ -1,9 +1,9 @@
 import java.util.Scanner;
-import java.util.Random;
 
 public class App {
+
     public static void preencheMatrizVazia(int[][] matriz) {
-        for (int i = 0; i < matriz[i].length; i++) {
+        for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[i].length; j++) {
                 matriz[i][j] = 0;
             }
@@ -11,24 +11,27 @@ public class App {
     }
 
     public static boolean verificaMatriz(int[][] matriz, int x, int y) {
-        for (int i = 0; i < matriz[i].length; i++) {
-            if (matriz[x][i] == 1 || matriz[i][y] == 1) {
-                return true;
-            }
+        int n = matriz.length;
+
+        // linha e coluna
+        for (int i = 0; i < n; i++) {
+            if (matriz[x][i] == 1 || matriz[i][y] == 1) return true;
         }
-        for (int i = 0; i < matriz[i].length; i++) {
-            for (int j = 0; j < matriz[j].length; j++) {
+
+        // diagonais
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
                 if (matriz[i][j] == 1 && (i - x == j - y || i - x == y - j)) {
                     return true;
                 }
             }
-
         }
+
         return false;
     }
 
     public static void printaMatriz(int[][] matriz) {
-        for (int i = 0; i < matriz[i].length; i++) {
+        for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[i].length; j++) {
                 System.out.print(matriz[i][j] + " | ");
             }
@@ -37,14 +40,12 @@ public class App {
     }
 
     public static void main(String[] args) {
-        java.util.Scanner scanner = new Scanner(System.in);
-        int num;
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Tamanho Matriz: ");
+        int num = scanner.nextInt();
 
-        System.out.println("Tamanho Matriz: ");
-        num = scanner.nextInt();
         int[][] matriz = new int[num][num];
         preencheMatrizVazia(matriz);
         printaMatriz(matriz);
-        verificaMatriz(matriz, num, num);
     }
 }
