@@ -39,6 +39,30 @@ public class App {
         }
     }
 
+    // colocando rainhas na matriz
+    public static boolean insereRainha(int[][]matriz, int x){
+            int n = matriz.length;
+
+            // parar quando todas as rainhas foram colocadas
+            if(x >=n){
+                return true;
+            }
+
+            // verificando se é possível colocar rainha na posição
+            for(int y = 0; y < n; y++){
+                if(!verificaMatriz(matriz,x,y)){
+                    matriz[x][y] = 1; // inserindo rainha
+
+                    // recursão para a proxima linha
+                    if(insereRainha(matriz, x + 1)){
+                        return true;
+                    }
+                    matriz[x][y] = 0;
+                }
+            }
+            return false;
+    }
+    
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Tamanho Matriz: ");
@@ -46,6 +70,11 @@ public class App {
 
         int[][] matriz = new int[num][num];
         preencheMatrizVazia(matriz);
-        printaMatriz(matriz);
+        
+        if(insereRainha(matriz, 0)){
+            printaMatriz(matriz);
+        } else {
+            System.out.println("Não foi possível posicionar as rainhas.");
+        }
     }
 }
